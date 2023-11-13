@@ -9,39 +9,33 @@ import { Juego } from '../Modelos/mock-juego';
 export class FireBaseService {
 
   constructor(private fb:Firestore) { }
-  // muestra todo segun el tipo que le pases (si es Usuario te muestra todos los usuarios)
- getFireBase(tipo:string): Observable <any[]> {
-   const objetoDeBaseRef = collection(this.fb,tipo);
-   return collectionData(objetoDeBaseRef, { idField: 'id'}) as Observable<any[]>;
- }
+  
+  getFireBase(nombreColeccion: string){
+    const collecionRef = collection(this.fb, nombreColeccion);
+    return collectionData(collecionRef, {idField: "id"}) as Observable<any[]>;
+  }
 
- // Crear campos en la base de datos
- setFireBase(objetoDeBase: any,tipo:string) {
-   const objetoDeBaseRef = collection(this.fb,tipo);
-   return addDoc(objetoDeBaseRef, objetoDeBase);
- }
+  getFireBasePorId(nombreColeccion: string, idA:string){
+    const collecionRef = doc(this.fb, nombreColeccion+"/"+idA);
+    return docData(collecionRef, {idField: "id"}) as Observable<any>;
+  }
 
- // Para completar el CRUD faltan: delete, update y get de un elemento
- deleteFireBase(objetoDeBase: any,tipo:string){
-   const objetoDeBaseDocRef = doc(this.fb, `${tipo}/${objetoDeBase.id}`);
-   return deleteDoc(objetoDeBaseDocRef);
- }
+  setFireBase(objeto: any, nombreColeccion: string){
+    const collecionRef = collection(this.fb, nombreColeccion);
+    return addDoc(collecionRef, objeto)
+      .then(() => console.log("Objeto guardado"))
+      .catch((error: any) => console.error(error));
+  }
 
- getFireBaseByID(id: string,tipo:string) {
-   const objetoDeBaseRef = doc(this.fb, `${tipo}/${id}`);
-   return docData(objetoDeBaseRef, {idField: 'id'}) as Observable<any>;
- }
+  // Método para hacer el update de un objeto en una coleccion
+  updateFireBase(objeto: any, nombreColeccion: string, id: string) {
+    const collectionRef = doc(this.fb, nombreColeccion+"/"+id);
+    return setDoc(collectionRef, objeto);
+  }
 
- // Forma de hacer las consultas a la base de datos con angular/fire 7
- getFireBaseByOther(campo: string, valor: any,tipo:string){
-   const collectionRef = collection(this.fb, tipo);
-   const queryRef = query(collectionRef, where(campo, '==', valor));
-   return collectionData(queryRef) as Observable<any[]>;
- }
-
- updateFireBase(objetoDeBase: any,tipo:string) {
-   const objetoDeBaseDOcRef = doc(this.fb, `${tipo}/${objetoDeBase.id}`);
-   return setDoc(objetoDeBaseDOcRef, objetoDeBase);
- }
+  deleteFireBase(objeto: any, nombreColeccion: string){
+    const collectionRef = doc(this.fb, nombreColeccion+"/"+objeto.id);
+    return deleteDoc(collectionRef);
+  }
 
 }

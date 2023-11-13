@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Juego } from 'src/app/Modelos/mock-juego';
-import { JuegosService } from 'src/app/Servicios/juegos.service';
+import { FireBaseService } from 'src/app/Servicios/fire-base.service';
+
 
 @Component({
   selector: 'app-lista-juego',
@@ -9,11 +10,11 @@ import { JuegosService } from 'src/app/Servicios/juegos.service';
 })
 export class ListaJuegoComponent {
   juegos:Juego[]=[];
-  constructor(private fbj:JuegosService) {
+  constructor(private fbs:FireBaseService) {
     
   }
   ngOnInit(){
-    this.fbj.getJuegos().subscribe( res => {
+    this.fbs.getFireBase("Juegos").subscribe( res => {
       this.juegos = res;
       console.log(this.juegos);
     });

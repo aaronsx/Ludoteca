@@ -1,6 +1,7 @@
-<div class="row" *ngFor="let usuario of usuarios">
+<div>
+  <div class="row">
     <div class="col"></div>
-    <div class="col">
+    <div class="col"  *ngFor="let usuario of usuarios">
       <div  class="card" style="width: 18rem;">
         <img src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
         <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
@@ -9,7 +10,12 @@
         </div>
       </div>
     </div>
+    <div style="text-align: center;">
+      <button class="button-85" role="button"  routerLink="/Usuario/detalle/agregar">Añadir</button>
+    </div>
+  </div>
 </div>
-<button class="button-85" role="button">Añadir</button>
+
+
 
 

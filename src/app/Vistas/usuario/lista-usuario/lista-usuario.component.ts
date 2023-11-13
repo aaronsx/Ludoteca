@@ -13,5 +13,11 @@ usuarios: Usuario[] = [];
 
 constructor(private fbs: FireBaseService) {
 }
-  
+  ngOnInit(){
+    this.fbs.getFireBase("Usuario")
+            .subscribe(res => this.usuarios = res);
+  }
+  eliminaUsuario(usuario: Usuario){
+    this.fbs.deleteFireBase(usuario, "Usuario");
+  }
 }
