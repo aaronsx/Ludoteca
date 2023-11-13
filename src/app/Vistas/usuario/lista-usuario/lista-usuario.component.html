@@ -1,0 +1,15 @@
+<div class="row" *ngFor="let usuario of usuarios">
+    <div class="col"></div>
+    <div class="col">
+      <div  class="card" style="width: 18rem;">
+        <img src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
+        <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
+        <div class="card-body">
+            <div class="col"> Editar Usuario<span><i class="bi bi-pencil-square" routerLink='/Usuario/detalle/{{usuario.id}}'></i></span></div>
+        </div>
+      </div>
+    </div>
+</div>
+<button class="button-85" role="button">Añadir</button>
+
+
