@@ -1,27 +1,23 @@
-
-
-    
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col offset-md-4">
-      <div  class="card" style="width: 18rem;">
-        <img src="{{juego.foto}}" class="card-img-top" alt="{{juego.titulo}}">
-        <h5 style="text-align: center;" class="card-title">{{juego.titulo}} +{{juego.pegi}}</h5>
-          <p style="text-align: center;">{{juego.company}}</p>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <input [(ngModel)]="juego.titulo" placeholder="titulo">
-                <input [(ngModel)]="juego.company" placeholder="Compañia">
-                <input [(ngModel)]="juego.pegi" placeholder="Edad minima" type="number" onkeydown="return event.keyCode !== 69">
-                <input [(ngModel)]="juego.foto" placeholder="url de la foto">
-              </ul>
-        </div>
-      </div>
-  </div>
-  <div >
-    <div class="col offset-md-5" style="margin-top: 5px;">
-      <button (click)="enviaDatos()" routerLink="/Juegos/listado" class="button-79" role="button">Enviar datos</button>
+<div class="registro-caja">
+  <div  class="card border-0" style="width: 18rem;">
+    <img *ngIf="juego.foto; else imagenPredeterminada" src="{{juego.foto}}" class="card-img-top" alt="{{juego.titulo}}">
+        <ng-template #imagenPredeterminada>
+          <img src="https://img.freepik.com/foto-gratis/equipo-videojuegos-futurista-iluminado-ia-generativa-discoteca_188544-32105.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699920000&semt=sph" alt="{{juego.titulo}}">
+        </ng-template>
+        <h5 style="text-align: center; margin-top: 20px;" class="card-title">{{juego.titulo}} +{{juego.pegi}}</h5>
+      <p style="text-align: center;">{{juego.company}}</p>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush">
+          <input [(ngModel)]="juego.titulo" placeholder="titulo">
+          <input [(ngModel)]="juego.company" placeholder="Compañia">
+          <input [(ngModel)]="juego.pegi" placeholder="Edad minima" type="number" onkeydown="return event.keyCode !== 69">
+          <input [(ngModel)]="juego.foto" placeholder="url de la foto">
+        </ul>
+      </ul>
     </div>
+  </div>
+  <div class="boton-container">
+    <button (click)="enviaDatos()" type="button" class="btn btn-primary" routerLink="/Juegos/listado">Enviar Datos</button>
   </div>
 </div>

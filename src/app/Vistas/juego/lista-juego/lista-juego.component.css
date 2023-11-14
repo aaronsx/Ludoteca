@@ -92,8 +92,33 @@
     transition: all 0.5s ease 0s;
   }
   img {
-    display: block;
-    max-width: 100%;
-    height: auto;
+    border-radius: 5px;
+    height: 270px;
+    width: 288px;
+    object-fit: cover;
+  }
+  .bi-trash
+  {
+    font-size: 16px; /* Tamaño inicial del ícono */
+    transition: font-size 0.3s; /* Agregar transición para suavizar el cambio de tamaño */
+  }
+  .bi-trash:hover
+  {
+    color:red;
+    font-size: 17px; /* Tamaño del ícono cuando el mouse está encima */
+  }
+  .bi-pencil-square
+  {
+    font-size: 16px; /* Tamaño inicial del ícono */
+    transition: font-size 0.3s; /* Agregar transición para suavizar el cambio de tamaño */
+  }
+  .bi-pencil-square:hover
+  {
+    color:rgb(0, 162, 255);
+    font-size: 17px; /* Tamaño del ícono cuando el mouse está encima */
+  }
+  .card {
+    background-color: rgba(0, 0, 0, 0.5); /* El último valor (0.5) controla la opacidad, ajusta según sea necesario */
+    /* Otros estilos para el card */
   }
   

@@ -1,20 +1,24 @@
-
-<div class="col"></div>
-    <div class="col">
-      <div  class="card" style="width: 18rem;">
-        <img src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
-        <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <input [(ngModel)]="usuario.nombre" placeholder="name">
-                <input [(ngModel)]="usuario.apellido" placeholder="apellido">
-                <input [(ngModel)]="usuario.email" placeholder="email">
-                <input [(ngModel)]="usuario.foto" placeholder="url de la foto">
-              </ul>
-        </div>
+<div class="registro-caja">
+    <div  class="card border-0" style="width: 18rem;">
+      <img *ngIf="usuario.foto; else imagenPredeterminada" src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
+      <ng-template #imagenPredeterminada>
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="{{usuario.nombre}}">
+      </ng-template>
+      <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <input [(ngModel)]="usuario.nombre" placeholder="name">
+          <input [(ngModel)]="usuario.apellido" placeholder="apellido">
+          <input [(ngModel)]="usuario.email" placeholder="email">
+          <input [(ngModel)]="usuario.foto" placeholder="url de la foto">
+        </ul>
       </div>
+    </div>
+    <div class="boton-container">
+      <button (click)="enviaDatos()" type="button" class="btn btn-primary" routerLink="/Usuario/listado">Enviar Datos</button>
+    </div>
 </div>
-    <button (click)="enviaDatos()" routerLink="/Usuario/listado">Enviar Datos</button>
+
 
  
 

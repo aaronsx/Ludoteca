@@ -1,19 +1,23 @@
-<div>
-  <div class="row" *ngIf="usuarios">
-    <div class="col"></div>
-    <div class="col"  *ngFor="let usuario of usuarios">
-      <div  class="card" style="width: 18rem;">
-        <img src="{{usuario.foto}}" class="card-img-top d-block w-100 h-100"  alt="{{usuario.nombre}}">
-        <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
-        <div class="card-body">
-            <div class="col"> Editar Usuario<span><i class="bi bi-pencil-square" routerLink='/Usuario/detalle/{{usuario.id}}'></i></span></div>
-        </div>
+<div class="row" *ngIf="usuarios">
+  <div class="col-lg-4 col-12 col-md-6"  *ngFor="let usuario of usuarios">
+    <div  class="card border-0" style="width: 18rem;">
+      <img *ngIf="usuario.foto; else imagenPredeterminada" src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
+      <ng-template #imagenPredeterminada>
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="{{usuario.nombre}}">
+      </ng-template>
+      <h5 style="text-align: center; margin-top: 20px; color: white;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
+      <div class="card-body" style="color: white;">
+        <span class="float-start ">
+          <i class="bi bi-pencil-square" routerLink='/Usuario/detalle/{{usuario.id}}'>Editar</i>
+        </span>
+        <span class="float-end"  (click)="eliminaUsuario(usuario)">
+          <i class="bi bi-trash">Eliminar</i>
+        </span>
       </div>
     </div>
-    <div style="text-align: center;">
-      <button class="button-85" role="button"  routerLink="/Usuario/agregar">Añadir</button>
-    </div>
-   
+  </div>
+  <div style="text-align: center; margin-top: 10px;">
+    <button class="button-85" role="button"  routerLink="/Usuario/agregar">Añadir</button>
   </div>
 </div>
 
