@@ -14,9 +14,15 @@ export class ListaJuegoComponent {
     
   }
   ngOnInit(){
-    this.fbs.getFireBase("Juegos").subscribe( res => {
-      this.juegos = res;
-      console.log(this.juegos);
-    });
+    this.fbs.getFireBase("Juegos")
+            .subscribe(res => this.juegos = res);
   }
+    
+    eliminaJuegos(game:Juego)
+    {
+      this.fbs.deleteFireBase(game, "Juegos");
+    }
+  
 }
+
+  

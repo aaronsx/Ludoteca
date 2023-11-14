@@ -1,7 +1,8 @@
 export interface Juego {
-    id:number;
+    id?:string;
     titulo:string;
     genero:string;
     pegi:number;
-    compañia:string;
+    company:string;
+    foto:string;
 }

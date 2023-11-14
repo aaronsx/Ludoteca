@@ -1,1 +1,27 @@
-<p>detalle-juego works!</p>
+
+
+    
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col offset-md-4">
+      <div  class="card" style="width: 18rem;">
+        <img src="{{juego.foto}}" class="card-img-top" alt="{{juego.titulo}}">
+        <h5 style="text-align: center;" class="card-title">{{juego.titulo}} +{{juego.pegi}}</h5>
+          <p style="text-align: center;">{{juego.company}}</p>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <input [(ngModel)]="juego.titulo" placeholder="titulo">
+                <input [(ngModel)]="juego.company" placeholder="Compañia">
+                <input [(ngModel)]="juego.pegi" placeholder="Edad minima" type="number" onkeydown="return event.keyCode !== 69">
+                <input [(ngModel)]="juego.foto" placeholder="url de la foto">
+              </ul>
+        </div>
+      </div>
+  </div>
+  <div >
+    <div class="col offset-md-5" style="margin-top: 5px;">
+      <button (click)="enviaDatos()" routerLink="/Juegos/listado" class="button-79" role="button">Enviar datos</button>
+    </div>
+  </div>
+</div>

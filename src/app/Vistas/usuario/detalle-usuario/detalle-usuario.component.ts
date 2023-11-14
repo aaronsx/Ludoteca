@@ -21,21 +21,21 @@ export class DetalleUsuarioComponent {
   }
 
   ngOnInit(){
-    if(this.route.snapshot.paramMap.get("id") != null){
+    if(this.route.snapshot.paramMap.get("id")){
       this.id = this.route.snapshot.paramMap.get("id")!;
       this.fbs.getFireBasePorId('Usuario',this.id).subscribe(
         (res: any) => this.usuario = res);
     }
   }
   enviaDatos(){
-    if(this.id != undefined)
+    if(this.id != "")
       this.modificarUsuario();
     else
       this.agregarUsuario();
   }
   agregarUsuario()
   {
-    console.log(this.usuario.foto);
+    console.log(this.usuario);
     this.fbs.setFireBase(this.usuario,'Usuario').
     then(()=>console.log("Se añadio correctamente")).
     catch(()=>console.log("No se añadio"));

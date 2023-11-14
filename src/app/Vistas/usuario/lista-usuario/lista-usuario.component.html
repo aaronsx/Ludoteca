@@ -1,9 +1,9 @@
 <div>
-  <div class="row">
+  <div class="row" *ngIf="usuarios">
     <div class="col"></div>
     <div class="col"  *ngFor="let usuario of usuarios">
       <div  class="card" style="width: 18rem;">
-        <img src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
+        <img src="{{usuario.foto}}" class="card-img-top d-block w-100 h-100"  alt="{{usuario.nombre}}">
         <h5 style="text-align: center;" class="card-title">{{usuario.nombre}} {{usuario.apellido}}</h5>
         <div class="card-body">
             <div class="col"> Editar Usuario<span><i class="bi bi-pencil-square" routerLink='/Usuario/detalle/{{usuario.id}}'></i></span></div>
@@ -11,8 +11,9 @@
       </div>
     </div>
     <div style="text-align: center;">
-      <button class="button-85" role="button"  routerLink="/Usuario/detalle/agregar">Añadir</button>
+      <button class="button-85" role="button"  routerLink="/Usuario/agregar">Añadir</button>
     </div>
+   
   </div>
 </div>
 
