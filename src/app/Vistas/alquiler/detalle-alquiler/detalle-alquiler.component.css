@@ -1,0 +1,20 @@
+.contenedor {
+    display: flex;
+  }
+  
+  .izquierda{
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  .centro{
+    flex: 1;
+    padding: 10px;
+    
+  }
+  .derecha {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  

@@ -94,7 +94,7 @@
   img {
     border-radius: 5px;
     height: 270px;
-    width: 288px;
+    width: 348px;
     object-fit: cover;
   }
   .bi-trash
@@ -120,5 +120,6 @@
   .card {
     background-color: rgba(0, 0, 0, 0.5); /* El último valor (0.5) controla la opacidad, ajusta según sea necesario */
     /* Otros estilos para el card */
+    
   }
   
