@@ -1,14 +1,37 @@
 <div class="contenedor">
-    <div class="izquierda">
+    <div class="izquierda" *ngIf="juegos">
       <!-- Contenido para el lado izquierdo -->
-      
+      <ul class="list-group">
+          <div *ngFor="let juego of juegos">
+            <li class="list-group-item redondeado" (click)="darJuego(juego)" [class.colorSelecionado]="juego===juegoSelect">{{juego.titulo}}</li>
+          </div>
+      </ul>
     </div>
     <div class="centro">
       <!-- Contenido para el centro -->
-      
-    </div>
-    <div class="derecha">
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <div *ngIf="usuarioSelect">
+            <li class="list-group-item quitarSelec" (click)="quitarUsuario()">{{usuarioSelect.nombre}}</li>
+          </div>
+          <div *ngIf="juegoSelect">
+            <li class="list-group-item quitarSelec" (click)="quitarJuego()">{{juegoSelect.titulo}}</li>
+          </div>
+        </ul>
+      </div>
+        <div class="boton-container">
+          <button (click)="enviaDatos()" type="button" class="btn btn-primary" routerLink="/Alquileres/listado">Enviar Datos</button>
+        </div>
+      </div>
+    <div class="derecha"*ngIf="usuarios">
       <!-- Contenido para el lado derecho -->
-      
+        <ul class="list-group">
+          <div *ngFor="let usuario of usuarios">
+            <li class="list-group-item redondeado"(click)="darUsuario(usuario)" [class.colorSelecionado]="usuario===usuarioSelect">{{usuario.nombre}}</li>
+          </div>
+      </ul>
     </div>
-  </div>
+</div>
+      
+      
+      

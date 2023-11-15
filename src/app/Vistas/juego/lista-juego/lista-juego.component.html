@@ -1,14 +1,14 @@
 <div class="row " *ngIf="juegos">
   <div class="col-lg-4 col-12 col-md-6 card-group"  *ngFor="let juego of juegos">
-    <div  class="card border-0" style="width: 18rem; color: white;">
+    <div  class="card border-0"  style="margin-top: 30px;">
        <img *ngIf="juego.foto; else imagenPredeterminada" src="{{juego.foto}}" class="card-img-top" alt="{{juego.titulo}}">
         <ng-template #imagenPredeterminada>
           <img src="https://img.freepik.com/foto-gratis/equipo-videojuegos-futurista-iluminado-ia-generativa-discoteca_188544-32105.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699920000&semt=sph" alt="{{juego.titulo}}">
         </ng-template>
-        <h5 style="text-align: center; margin-top: 20px;" class="card-title">{{juego.titulo}} +{{juego.pegi}}</h5>
-      <p style="text-align: center;">{{juego.company}}</p>
-      <div class="card-body">
-        <span class="float-start">
+        <h5 style="text-align: center; margin-top: 20px; color: white;" class="card-title">{{juego.titulo}} +{{juego.pegi}}</h5>
+      <p style="text-align: center; color: white;">{{juego.company}}</p>
+      <div class="card-body" style="color: white;">
+        <span class="float-start" >
          <i class="bi bi-pencil-square" routerLink='/Juegos/detalle/{{juego.id}}'>Editar</i>
         </span>
         <span class="float-end"  (click)="eliminaJuegos(juego)">

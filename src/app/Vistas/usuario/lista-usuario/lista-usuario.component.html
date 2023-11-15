@@ -1,6 +1,6 @@
 <div class="row " *ngIf="usuarios">
   <div class="col-lg-4 col-12 col-md-6 card-group"   *ngFor="let usuario of usuarios">
-  <div  class="card border-0" >
+  <div  class="card border-0" style="margin-top: 30px;">
       <img *ngIf="usuario.foto; else imagenPredeterminada" src="{{usuario.foto}}" class="card-img-top" alt="{{usuario.nombre}}">
       <ng-template #imagenPredeterminada>
         <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="{{usuario.nombre}}">
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div style="text-align: center; margin-top: 10px;">
-    <button class="button-85" role="button"  routerLink="/Usuario/agregar">Añadir</button>
+    <button class="button-85" role="button"  routerLink="/Usuarios/agregar">Añadir</button>
   </div>
 </div>
 

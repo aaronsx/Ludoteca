@@ -1,6 +1,6 @@
 export interface Alquiler {
-    id:number;
-    id_Usuario:number;
-    id_Juego:number;
+    id?:string;
+    id_Usuario?:string;
+    id_Juego?:string;
     
 }

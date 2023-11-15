@@ -94,7 +94,7 @@
   img {
     border-radius: 5px;
     height: 270px;
-    width: 348px;
+    width: 100%; /* La imagen se ajustará al 100% del ancho del card */
     object-fit: cover;
   }
   .bi-trash

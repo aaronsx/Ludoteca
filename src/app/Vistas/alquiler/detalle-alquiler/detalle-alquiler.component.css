@@ -5,16 +5,36 @@
   .izquierda{
     flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    
   }
   .centro{
     flex: 1;
     padding: 10px;
-    
+    text-align: center;
+    margin-left: 50px;
   }
   .derecha {
     flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    
   }
+  
+  li.redondeado:hover
+  {
+    transform: scale(1.1); /* Aumenta el tamaño del elemento al 110% cuando pasas el ratón por encima */
+    background-color: aqua;
+    border-radius: 10px; /* Ajusta el radio según tus preferencias */
+    overflow: hidden; /* Para que el borde redondeado sea visible */
+  }
+  li.colorSelecionado {
+    background-color: aqua; /* Cambia este color según tus preferencias */
+    color: white; /* Cambia el color del texto según tus preferencias */
+  }
+  li.quitarSelec:hover{
+    transform: scale(1.1); /* Aumenta el tamaño del elemento al 110% cuando pasas el ratón por encima */
+    background-color: rgb(255, 0, 0);
+    border-radius: 10px; /* Ajusta el radio según tus preferencias */
+    overflow: hidden; /* Para que el borde redondeado sea visible */
+  }
+  
   
