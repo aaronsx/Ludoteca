@@ -1,1 +1,18 @@
-<p>lista-alquiler works!</p>
+<table *ngIf="mostrarTodo" class="table">
+    <thead>
+      <tr>
+        <th scope="col">Juego</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Fecha del alquiler</th>
+        <th scope="col">Fecha fin del alquiler</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of mostrarTodo">
+        <tr>
+          <td>{{ item.nombreJuego}}</td>
+          <td>{{ item.nombreUsuario }}</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+  </table>
