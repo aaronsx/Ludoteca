@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { catchError, forkJoin, switchMap, throwError } from 'rxjs';
 import { Alquiler } from 'src/app/Modelos/mock-alquiler';
 import { Juego } from 'src/app/Modelos/mock-juego';
 import { Usuario } from 'src/app/Modelos/mock-usuario';
@@ -14,8 +14,9 @@ export class ListaAlquilerComponent {
   alquileres: any[] = [];
   juegos: Juego = { titulo: '', genero: '', pegi: 0, company: '', foto: '' };
   usuarios: Usuario = { nombre: '', apellido: '', foto: '', email: '' };
-  mostrarTodo: any[] = [];
-
+  mostrarTodoPersona: any[] = [];
+  mostrarTodoJuego: any[] = [];
+  
   constructor(private fbs: FireBaseService) {}
   ngOnInit() {
     this.fbs.getFireBase('Alquiler').subscribe((res) => {
@@ -24,31 +25,34 @@ export class ListaAlquilerComponent {
       // Para cada alquiler, busca el usuario y el juego correspondientes
       this.alquileres.forEach((alquiler) => {
         this.fbs
-          .getFireBasePorId('Usuarios', alquiler.id_Usuario)
+          .getFireBasePorId('Usuario', alquiler.id_Usuario)
           .subscribe((usuario) => {
-            alquiler.nombreUsuario = usuario.nombre; // Suponiendo que el objeto Usuario tiene una propiedad 'nombre'
+            alquiler.nombreUsuario = usuario.nombre +" "+usuario.apellido; // Suponiendo que el objeto Usuario tiene una propiedad 'nombre'
+            
             // Llena el arreglo mostrarTodo con la información actualizada
-            this.mostrarTodo = this.alquileres.map((alquiler) => ({
+            this.mostrarTodoJuego = this.alquileres.map((alquiler) => ({
+              id: alquiler.id,
               nombreUsuario: alquiler.nombreUsuario || 'Usuario no encontrado',
+              nombreJuego: alquiler.nombreJuego || 'Juego no encontrado',
             }));
+           
           });
 
         this.fbs
           .getFireBasePorId('Juegos', alquiler.id_Juego)
           .subscribe((juego) => {
             alquiler.nombreJuego = juego.titulo; // Suponiendo que el objeto Juego tiene una propiedad 'titulo'
-            // Llena el arreglo mostrarTodo con la información actualizada
-            this.mostrarTodo = this.alquileres.map((alquiler) => ({
-              
-              nombreJuego: alquiler.nombreJuego || 'Juego no encontrado',
-            }));
+           // Llena el arreglo mostrarTodo con la información actualizada
+          this.mostrarTodoJuego = this.alquileres.map((alquiler) => ({
+           id: alquiler.id,
+            nombreUsuario: alquiler.nombreUsuario || 'Usuario no encontrado',
+            nombreJuego: alquiler.nombreJuego || 'Juego no encontrado',
+      }));
+            
           });
+         
       });
     });
-    // Llena el arreglo mostrarTodo con la información actualizada
-    this.mostrarTodo = this.alquileres.map(alquiler => ({
-      id: alquiler.id,
-    }));
   }
 
   eliminaJuegos(alquileres: Alquiler) {
