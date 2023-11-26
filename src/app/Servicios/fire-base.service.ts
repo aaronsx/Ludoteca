@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, deleteDoc, doc, docData, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Juego } from '../Modelos/mock-juego';
+import { Usuario } from '../Modelos/mock-usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,4 @@ export class FireBaseService {
     const collectionRef = doc(this.fb, nombreColeccion+"/"+objeto.id);
     return deleteDoc(collectionRef);
   }
-
 }

@@ -1,7 +1,7 @@
 <div class="contenedor">
     <div class="izquierda" *ngIf="juegos">
       <!-- Contenido para el lado izquierdo -->
-      <ul class="list-group">
+      <ul class="list-group" >
           <div *ngFor="let juego of juegos">
             <li class="list-group-item redondeado" (click)="darJuego(juego)" [class.colorSelecionado]="juego===juegoSelect">{{juego.titulo}}</li>
           </div>
@@ -12,16 +12,41 @@
       <div class="card" style="width: 18rem;">
         <ul class="list-group list-group-flush">
           <div *ngIf="usuarioSelect">
+            <label>Usuario:</label>
             <li class="list-group-item quitarSelec" (click)="quitarUsuario()">{{usuarioSelect.nombre}}</li>
           </div>
           <div *ngIf="juegoSelect">
+            <label>Juego:</label>
             <li class="list-group-item quitarSelec" (click)="quitarJuego()">{{juegoSelect.titulo}}</li>
+          </div>
+          <div *ngIf="juegoSelect&&usuarioSelect" class="list-group-item">
+            <label>Fecha del alquiler:</label>
+            <input
+        type="date"
+        class="form-control"
+        name="fechaAlquiler"
+        #faCtrl="ngModel"
+        [(ngModel)]="alquiler.fechaAlquiler"
+        placeholder="fecha del alquiler (dd/mm/aaaa)"
+        required
+      />
+          </div>
+          <div *ngIf="juegoSelect&&usuarioSelect" class="list-group-item">
+            <label>Devolución:</label>
+            <input
+              type="date"
+              class="form-control"
+              name="fechaDevolucion"
+              #fdCtrl="ngModel"
+              [(ngModel)]="alquiler.fechaDevolucion"
+              placeholder="fecha devolución (dd/mm/aaaa)"
+            />
           </div>
         </ul>
       </div>
-        <div class="boton-container">
-          <button (click)="enviaDatos()" type="button" class="btn btn-primary" routerLink="/Alquileres/listado">Enviar Datos</button>
-        </div>
+      <div class="boton-container" *ngIf="juegoSelect&&usuarioSelect">
+        <button (click)="enviaDatos()" type="button" class="btn btn-primary" routerLink="/Alquileres/listado">Enviar Datos</button>
+      </div>
       </div>
     <div class="derecha"*ngIf="usuarios">
       <!-- Contenido para el lado derecho -->

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Alquiler } from 'src/app/Modelos/mock-alquiler';
 import { Juego } from 'src/app/Modelos/mock-juego';
 import { Usuario } from 'src/app/Modelos/mock-usuario';
@@ -10,9 +11,9 @@ import { FireBaseService } from 'src/app/Servicios/fire-base.service';
   styleUrls: ['./detalle-alquiler.component.css']
 })
 export class DetalleAlquilerComponent {
-  route: any;
+  
 
-  constructor(private fbs:FireBaseService) {
+  constructor(private route: ActivatedRoute,private fbs:FireBaseService) {
     
   }
   //Pillar usuarios y juegos seleccionado
@@ -21,9 +22,11 @@ export class DetalleAlquilerComponent {
   idJuego:string="";
   //Una lita usuario y juegos 
   juegos:Juego[]=[];
+  juego:any;
   usuarios:Usuario[]=[];
+  usuario:any;
   //creamos un objeto alquiler
-  alquiler:Alquiler={ id:"", id_Usuario:"",id_Juego:""};
+  alquiler:Alquiler={ id:"", id_Usuario:"",id_Juego:"", fechaAlquiler:"",fechaDevolucion:""};
   id:string="";
   //Pillamos de la base de datos los juegos y Usuario
   ngOnInit(){
@@ -32,11 +35,25 @@ export class DetalleAlquilerComponent {
     this.fbs.getFireBase("Usuario")
             .subscribe(res => this.usuarios = res);
   //Pillamos la url 
-  if(this.route.snapshot.paramMap.get("id")){
-              this.id = this.route.snapshot.paramMap.get("id")!;
-              this.fbs.getFireBasePorId('Alquiler',this.id).subscribe(
-                (res: any) => this.alquiler = res);
-            }
+  if (this.route.snapshot.paramMap.get("id")) {
+    this.id = this.route.snapshot.paramMap.get("id")!;
+    this.fbs.getFireBasePorId('Alquiler', this.id).subscribe(
+      (res: any) => {
+        console.log('Alquiler por ID:', res);
+        this.alquiler = res;
+       
+        // Si se encuentra un ID de usuario en el alquiler, selecciona automáticamente el usuario
+        if (this.alquiler.id_Usuario) {
+          this.usuarioSelect = this.usuarios.find(usuario => usuario.id === this.alquiler.id_Usuario);
+        }
+
+        // Si se encuentra un ID de juego en el alquiler, selecciona automáticamente el juego
+        if (this.alquiler.id_Juego) {
+          this.juegoSelect = this.juegos.find(juego => juego.id === this.alquiler.id_Juego);
+        }
+      }
+    );
+  }
   }
   enviaDatos(){
     if(this.id != "")
@@ -46,7 +63,6 @@ export class DetalleAlquilerComponent {
   }
   agregarAlquiler()
   {
-    
     this.alquiler.id_Usuario = this.usuarioSelect.id;
     this.alquiler.id_Juego = this.juegoSelect.id;
     console.log(this.alquiler);
@@ -62,7 +78,8 @@ export class DetalleAlquilerComponent {
     then(()=>console.log("Se guardo correctamente")).
     catch(()=>console.log("No se guardo"));
   }
-
+  //Metodo para sacar el nombre
+ 
   // Método para cambiar el estado de clic
   darJuego(juego:Juego):void{
     this.juegoSelect=juego;

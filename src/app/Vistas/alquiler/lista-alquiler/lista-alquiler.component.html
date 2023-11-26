@@ -5,14 +5,20 @@
         <th scope="col">Usuario</th>
         <th scope="col">Fecha del alquiler</th>
         <th scope="col">Fecha fin del alquiler</th>
+        <th scope="col"><span style="color: blue;">Edit</span>/<span style="color: red;">Eliminar</span></th>
       </tr>
     </thead>
     <tbody >
         <tr *ngFor="let item of mostrarTodoJuego">
-          <td >{{ item.nombreJuego}}</td>
-          <td >{{ item.nombreUsuario }}</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td>{{ item.nombreJuego}}</td>
+          <td>{{ item.nombreUsuario }}</td>
+          <td>{{ item.fechaAlquiler }}</td>
+          <td>{{ item.fechaDevolucion }}</td>
+          <td> <i class="bi bi-pencil-square editar" routerLink='/Alquileres/detalle/{{item.id}}'></i>/<i class="bi bi-trash eliminar" (click)="eliminaAlquiler(item.id)"></i></td>
         </tr>
       </tbody>
+        
   </table>
+  <div  style="text-align: center; margin-top: 20px;">
+    <button class="button-85" role="button"  routerLink="/Alquileres/agregar">Añadir</button>
+  </div>

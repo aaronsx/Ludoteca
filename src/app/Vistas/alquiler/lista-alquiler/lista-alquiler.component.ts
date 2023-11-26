@@ -34,6 +34,8 @@ export class ListaAlquilerComponent {
               id: alquiler.id,
               nombreUsuario: alquiler.nombreUsuario || 'Usuario no encontrado',
               nombreJuego: alquiler.nombreJuego || 'Juego no encontrado',
+              fechaAlquiler:alquiler.fechaAlquiler,
+              fechaDevolucion:alquiler.fechaDevolucion,
             }));
            
           });
@@ -47,6 +49,8 @@ export class ListaAlquilerComponent {
            id: alquiler.id,
             nombreUsuario: alquiler.nombreUsuario || 'Usuario no encontrado',
             nombreJuego: alquiler.nombreJuego || 'Juego no encontrado',
+            fechaAlquiler:alquiler.fechaAlquiler,
+            fechaDevolucion:alquiler.fechaDevolucion,
       }));
             
           });
@@ -55,7 +59,16 @@ export class ListaAlquilerComponent {
     });
   }
 
-  eliminaJuegos(alquileres: Alquiler) {
-    this.fbs.deleteFireBase(alquileres, 'Alquiler');
+  eliminaAlquiler(alquileres: Alquiler) {
+    if (this.mostrarTodoJuego.length > 0) {
+      const primerElemento = this.mostrarTodoJuego[0];
+      this.fbs.getFireBasePorId('Alquiler', primerElemento.id).subscribe((alquiler) => {
+        // Hacer algo con el objeto 'alquiler' obtenido
+        this.fbs.deleteFireBase(alquiler, 'Alquiler');
+      });
+    } else {
+      console.error('El array this.mostrarTodoJuego está vacío.');
+    }
+    
   }
 }
