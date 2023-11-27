@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Juego } from 'src/app/Modelos/mock-juego';
 import { FireBaseService } from 'src/app/Servicios/fire-base.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle-juego',
@@ -33,14 +34,28 @@ export class DetalleJuegoComponent {
   agregarJuego()
   {
     console.log(this.juego);
-    this.fbs.setFireBase(this.juego,'Juegos').
-    then(()=>console.log("Se añadio correctamente")).
-    catch(()=>console.log("No se añadio"));
+    this.fbs.setFireBase(this.juego,'Juegos').then(() => Swal.fire({
+      title: "Guardado!",
+      text: "El juego ha sido guardado",
+      icon: 'success'
+    }))
+    .catch(()=> Swal.fire({
+      title: "Oops...!",
+      text: "El juego no ha sido guardado",
+      icon: 'error'
+    }));
   }
   modificarJuego()
   {
-    this.fbs.updateFireBase(this.juego,'Juegos', this.id!).
-    then(()=>console.log("Se guardo correctamente")).
-    catch(()=>console.log("No se guardo"));
+    this.fbs.updateFireBase(this.juego,'Juegos', this.id!).then(() => Swal.fire({
+      title: "Editado!",
+      text: "El juego ha sido editado",
+      icon: 'success'
+    }))
+    .catch(()=> Swal.fire({
+      title: "Oops...!",
+      text: "El juego no ha sido editado",
+      icon: 'error'
+    }));
   }
 }

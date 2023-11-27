@@ -3,6 +3,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { ActivatedRoute, RouteConfigLoadEnd } from '@angular/router';
 import { Usuario } from 'src/app/Modelos/mock-usuario';
 import { FireBaseService } from 'src/app/Servicios/fire-base.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -36,14 +37,33 @@ export class DetalleUsuarioComponent {
   agregarUsuario()
   {
     console.log(this.usuario);
-    this.fbs.setFireBase(this.usuario,'Usuario').
-    then(()=>console.log("Se añadio correctamente")).
-    catch(()=>console.log("No se añadio"));
+    this.fbs.setFireBase(this.usuario,'Usuario').then(() => Swal.fire({
+        title: "Guardado!",
+        text: "Usuario ha sido guardado",
+        icon: 'success'
+      }))
+      .catch(()=> Swal.fire({
+        title: "Oops...!",
+        text: "El usuario no ha sido guardado",
+        icon: 'error'
+      }));
+  
   }
   modificarUsuario()
   {
-    this.fbs.updateFireBase(this.usuario,'Usuario', this.id!).
-    then(()=>console.log("Se guardo correctamente")).
-    catch(()=>console.log("No se guardo"));
+    this.fbs.updateFireBase(this.usuario,'Usuario', this.id!).then(() => Swal.fire({
+      title: "Editado!",
+      text: "Usuario ha sido editado",
+      icon: 'success'
+    }))
+    .catch(()=> Swal.fire({
+      title: "Oops...!",
+      text: "El usuario no ha sido editado",
+      icon: 'error'
+    }));
   }
+
+  
 }
+
+

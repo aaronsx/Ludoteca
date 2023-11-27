@@ -4,6 +4,7 @@ import { Alquiler } from 'src/app/Modelos/mock-alquiler';
 import { Juego } from 'src/app/Modelos/mock-juego';
 import { Usuario } from 'src/app/Modelos/mock-usuario';
 import { FireBaseService } from 'src/app/Servicios/fire-base.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-alquiler',
@@ -14,7 +15,6 @@ export class ListaAlquilerComponent {
   alquileres: any[] = [];
   juegos: Juego = { titulo: '', genero: '', pegi: 0, company: '', foto: '' };
   usuarios: Usuario = { nombre: '', apellido: '', foto: '', email: '' };
-  mostrarTodoPersona: any[] = [];
   mostrarTodoJuego: any[] = [];
   
   constructor(private fbs: FireBaseService) {}
@@ -40,7 +40,7 @@ export class ListaAlquilerComponent {
            
           });
 
-        this.fbs
+          this.fbs
           .getFireBasePorId('Juegos', alquiler.id_Juego)
           .subscribe((juego) => {
             alquiler.nombreJuego = juego.titulo; // Suponiendo que el objeto Juego tiene una propiedad 'titulo'
@@ -64,7 +64,46 @@ export class ListaAlquilerComponent {
       const primerElemento = this.mostrarTodoJuego[0];
       this.fbs.getFireBasePorId('Alquiler', primerElemento.id).subscribe((alquiler) => {
         // Hacer algo con el objeto 'alquiler' obtenido
-        this.fbs.deleteFireBase(alquiler, 'Alquiler');
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+          },
+          buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+          title: "¿Estás seguro?",
+          text: "¡No se podrán revertir los cambios!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Si, eliminar!",
+          cancelButtonText: "No, cancelar!",
+          reverseButtons: true
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.fbs.deleteFireBase(alquiler, 'Alquiler')
+              .then(() => swalWithBootstrapButtons.fire({
+                title: "Eliminado!",
+                text: "El alquiler ha sido eliminado",
+                icon: "success"
+              }))
+              .catch(() => swalWithBootstrapButtons.fire({
+                title: "Oops...!",
+                text: "El alquiler no ha sido eliminado",
+                icon: "error"
+              }));
+    
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire({
+              title: "Cancelado",
+              text: "El alquiler no ha sido eliminado",
+              icon: "error"
+            });
+          }
+        });
       });
     } else {
       console.error('El array this.mostrarTodoJuego está vacío.');
